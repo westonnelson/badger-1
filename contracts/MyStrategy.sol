@@ -32,7 +32,7 @@ contract MyStrategy is BaseStrategy {
     
     /// @dev Return the name of the strategy
     function getName() external pure override returns (string memory) {
-        return "MyStrategy";
+        return "ScreamYieldFarmingWBTC";
     }
 
     /// @dev Return a list of protected tokens
@@ -40,7 +40,7 @@ contract MyStrategy is BaseStrategy {
     /// @notice this provides security guarantees to the depositors they can't be sweeped away
     function getProtectedTokens() public view virtual override returns (address[] memory) {
         address[] memory protectedTokens = new address[](2);
-        protectedTokens[0] = want;
+        protectedTokens[0] = 0x321162Cd933E2Be498Cd2267a90534A804051b11;
         protectedTokens[1] = BADGER;
         return protectedTokens;
     }
