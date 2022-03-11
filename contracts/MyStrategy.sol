@@ -18,11 +18,11 @@ contract MyStrategy is BaseStrategy {
     // address public reward; // Token we farm
 
     // $WBTC 
-    address public want; = 0x321162Cd933E2Be498Cd2267a90534A804051b11 
+    address public constant want = 0x321162Cd933E2Be498Cd2267a90534A804051b11;
     // $scWBTC Token;
-    CTokenInterface scToken; = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
+    CTokenInterface scToken = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
     // $SCREAM Token
-    address public reward; = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
+    address public reward = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
 
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
 

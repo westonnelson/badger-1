@@ -1,4 +1,4 @@
-## Token deposited in the vault
+# $WBTC
 WANT = "0x321162Cd933E2Be498Cd2267a90534A804051b11"
 
 ## Account that has a lot of want (we will "borrow it" for testing)
