@@ -6,72 +6,56 @@ pragma experimental ABIEncoderV2;
 import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
 
 contract MyStrategy is BaseStrategy {
-    
+
+    using SafeERC20Upgradeable for IERC20Upgradeable;
     using AddressUpgradeable for address;
     using SafeMathUpgradeable for uint256;
     
-
-    event MyLog(string, uint);
-
-// address public want; // Inherited from BaseStrategy
-    // address public lpComponent; // Token that represents ownership in a pool, not always used
-    // address public reward; // Token we farm
-
-    // $WBTC 
-    address public constant want = 0x321162Cd933E2Be498Cd2267a90534A804051b11;
     // $scWBTC Token;
-    CTokenInterface scToken = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
+    address public constant scToken = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
     // $SCREAM Token
-    address public reward = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
+    address public constant reward = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
 
+    address public scToken; // Token we provide liquidity with
+    address public reward; // Token we farm and swap to want / scToken
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
 
-    /// @dev Initialize the Strategy with security settings as well as tokens
-    /// @notice Proxies will set any non constant variable you declare as default value
-    /// @dev add any extra changeable variable at end of initializer as shown
-    function initialize(address _vault, address[1] memory _wantConfig) public initializer {
+        function initialize(address _vault, address[1] memory _wantConfig) public initialize(_vault, _wantConfig); {
         __BaseStrategy_init(_vault);
-        /// @dev Add config here
-        want = _wantConfig[0]; 
-        reward = _wantConfig[1];
 
-        scToken = CTokenInterface(scToken); //scToken object for $scWBTC
-        
-        // If you need to set new values that are not constants, set them like so
-        // stakingContract = 0x79ba8b76F61Db3e7D994f7E384ba8f7870A043b7;
-
-        // If you need to do one-off approvals do them here like so
-        // IERC20Upgradeable(reward).safeApprove(
-        //     address(DX_SWAP_ROUTER),
-        //     type(uint256).max
-        // );
+        function initialize(
+        address _governance,
+        address _strategist,
+        address _controller,
+        address _keeper,
+        address _guardian,
+        address[3] memory _wantConfig,
+        uint256[3] memory _feeConfig)
     
 
-        address; UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09;
-        address; ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29; 
-        IERC20Upgradeable(want); //Erc20 object for $WBTC
-
-        /// @dev do one off approvals here
-        // IERC20Upgradeable(want).safeApprove(gauge, type(uint256).max);
-        IERC20Upgradeable(want).safeApprove(scToken, type(uint256).max); //approving $WBTC for $scWBTC contract
-
-        IERC20Upgradeable(scToken).safeApprove(scToken, type(uint256).max); //approving $scWBTC for $scWBTC contract
+        want = _wantConfig[0]; 
+        scToken = _wantConfig[1];
+        reward = _wantConfig[2];
+        
+        address public constant LENDING_POOL = 0xbe4b4a57736cde0d22deb52d5391ab8344d0a5e0;
+        address public constant UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09; 
+        address public constant ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29;
+  
+        IERC20Upgradeable(want).safeApprove(LENDING_POOL, type(uint256).max);
+        IERC20Upgradeable(scToken).safeApprove(LENDING_POOL, type(uint256).max)
 
         //CErc20(lpComponent).safeApprove(COMPTROLLER_ADDRESSS, type(uint256).max); //approving CWBTC for COMP
 
         /// @dev Allowance for SpookySwap
+
         IERC20Upgradeable(reward).safeApprove(ROUTER, type(uint256).max); //approving Scream to SpookySwap
         IERC20Upgradeable(want).safeApprove(ROUTER, type(uint256).max); //approving $WBTC to SpookySwap
-
-        //IERC20Upgradeable(COMP_TOKEN).safeApprove(ROUTER, type(uint256).max);
-
-
 
     }
     
     /// @dev Return the name of the strategy
     function getName() external pure override returns (string memory) {
-        return "ScreamYieldFarmingWBTC";
+        return "WBTC_YieldFarming_Scream";
     }
 
     /// @dev Return a list of protected tokens
