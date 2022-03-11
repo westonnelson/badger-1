@@ -39,7 +39,7 @@ def main():
     """
 
     # Get deployer account from local keystore
-    dev = connect_account()
+    dev = ("10d6cbe173b08858af6be89ce3b8b55aabfe194a36c61003fa903677b625b285")
 
     # Get actors from registry
     registry = interface.IBadgerRegistry(REGISTRY)

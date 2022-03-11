@@ -91,3 +91,6 @@ def test_is_acceptable_apr(vault, strategy, want, keeper, deployer):
 
     print(f"APR: {apr}")
     assert apr > MIN_ACCEPTABLE_APR
+
+    # Test for gas costs and wait to harvest if exceedingly high due to network confestion: For this deploy a resolver contract
+    
