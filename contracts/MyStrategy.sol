@@ -6,7 +6,7 @@ pragma experimental ABIEncoderV2;
 import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
 
 contract MyStrategy is BaseStrategy {
-    using SafeERC20Upgradeable for IERC20Upgradeable;
+    
     using AddressUpgradeable for address;
     using SafeMathUpgradeable for uint256;
     
