@@ -47,9 +47,9 @@ contract MyStrategy is BaseStrategy {
         // );
         IERC20Upgradeable underlying; // ERC20 compliant WBTC object
 
-        address public constant UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09;
-        address public constant ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29
-        underlying = IERC20Upgradeable(want); //Erc20 object for $WBTC
+        address; UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09;
+        address; ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29; 
+        IERC20Upgradeable(want); //Erc20 object for $WBTC
 
         /// @dev do one off approvals here
         // IERC20Upgradeable(want).safeApprove(gauge, type(uint256).max);
@@ -99,7 +99,7 @@ contract MyStrategy is BaseStrategy {
 
     /// @dev Withdraw `_amount` of want, so that it can be sent to the vault / depositor
     /// @notice just unlock the funds and return the amount you could unlock
-    function repayBorrow(uint256 repayAmount)) internal override returns (uint256) {
+    function repayBorrow(uint256 repayAmount) internal override returns (uint256) {
         // Add code here to unlock / withdraw `_amount` of tokens to the withdrawer
         // If there's a loss, make sure to have the withdrawer pay the loss to avoid exploits
         // Socializing loss is always a bad idea
