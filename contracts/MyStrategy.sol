@@ -45,7 +45,7 @@ contract MyStrategy is BaseStrategy {
         //     address(DX_SWAP_ROUTER),
         //     type(uint256).max
         // );
-        IERC20Upgradeable underlying; // ERC20 compliant WBTC object
+    
 
         address; UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09;
         address; ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29; 
