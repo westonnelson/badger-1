@@ -36,6 +36,8 @@ def test_are_you_trying(deployer, vault, strategy, want, governance):
     # Use this if it should invest all
     # assert want.balanceOf(strategy) == 0
 
+    
+
     # Change to this if the strat is supposed to hodl and do nothing
     # assert strategy.balanceOf(want) = depositAmount
 

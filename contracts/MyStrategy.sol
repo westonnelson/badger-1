@@ -6,6 +6,13 @@ pragma experimental ABIEncoderV2;
 import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
 
 contract MyStrategy is BaseStrategy {
+    using SafeERC20Upgradeable for IERC20Upgradeable;
+    using AddressUpgradeable for address;
+    using SafeMathUpgradeable for uint256;
+    
+
+    event MyLog(string, uint);
+
 // address public want; // Inherited from BaseStrategy
     // address public lpComponent; // Token that represents ownership in a pool, not always used
     // address public reward; // Token we farm
@@ -13,7 +20,7 @@ contract MyStrategy is BaseStrategy {
     // $WBTC 
     address public want; = 0x321162Cd933E2Be498Cd2267a90534A804051b11 
     // $scWBTC Token;
-    address public scToken; = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
+    CTokenInterface scToken; = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
     // $SCREAM Token
     address public reward; = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
 
@@ -25,7 +32,10 @@ contract MyStrategy is BaseStrategy {
     function initialize(address _vault, address[1] memory _wantConfig) public initializer {
         __BaseStrategy_init(_vault);
         /// @dev Add config here
-        want = [0x321162Cd933E2Be498Cd2267a90534A804051b11];
+        want = _wantConfig[0]; 
+        reward = _wantConfig[1];
+
+        scToken = CTokenInterface(scToken); //scToken object for $scWBTC
         
         // If you need to set new values that are not constants, set them like so
         // stakingContract = 0x79ba8b76F61Db3e7D994f7E384ba8f7870A043b7;
@@ -35,6 +45,26 @@ contract MyStrategy is BaseStrategy {
         //     address(DX_SWAP_ROUTER),
         //     type(uint256).max
         // );
+        IERC20Upgradeable underlying; // ERC20 compliant WBTC object
+
+        address public constant UNITROLLER_ADDRESSS = 0x260E596DAbE3AFc463e75B6CC05d8c46aCAcFB09;
+        address public constant ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29
+        underlying = IERC20Upgradeable(want); //Erc20 object for $WBTC
+
+        /// @dev do one off approvals here
+        // IERC20Upgradeable(want).safeApprove(gauge, type(uint256).max);
+        IERC20Upgradeable(want).safeApprove(scToken, type(uint256).max); //approving $WBTC for $scWBTC contract
+
+        IERC20Upgradeable(scToken).safeApprove(scToken, type(uint256).max); //approving $scWBTC for $scWBTC contract
+
+        //CErc20(lpComponent).safeApprove(COMPTROLLER_ADDRESSS, type(uint256).max); //approving CWBTC for COMP
+
+        /// @dev Allowance for SpookySwap
+        IERC20Upgradeable(reward).safeApprove(ROUTER, type(uint256).max); //approving Scream to SpookySwap
+        IERC20Upgradeable(want).safeApprove(ROUTER, type(uint256).max); //approving $WBTC to SpookySwap
+
+        //IERC20Upgradeable(COMP_TOKEN).safeApprove(ROUTER, type(uint256).max);
+
 
 
     }
