@@ -3,22 +3,37 @@
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
 
+import "@openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin-contracts-upgradeable/math/SafeMathUpgradeable.sol";
+import "@openzeppelin-contracts-upgradeable/math/MathUpgradeable.sol";
+import "@openzeppelin-contracts-upgradeable/utils/AddressUpgradeable.sol";
+import "@openzeppelin-contracts-upgradeable/token/ERC20/SafeERC20Upgradeable.sol";
+
+
 import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
+import {ILendingPool} from "../interfaces/aave/ILendingPool.sol";
+import {IRewardsContract} from "../interfaces/aave/IRewardsContract.sol";
+import {IRouter} from "../interfaces/joe/IRouter.sol";
+
 
 contract MyStrategy is BaseStrategy {
 
     using SafeERC20Upgradeable for IERC20Upgradeable;
     using AddressUpgradeable for address;
     using SafeMathUpgradeable for uint256;
+
+    event Debug(string name, uint256 value);
     
     // $scWBTC Token;
-    address public constant scToken = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
+    address public constant SCTOKEN = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
     // $SCREAM Token
-    address public constant reward = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
-    // $wBTC Token want
-    address public constant want = 0x321162Cd933E2Be498Cd2267a90534A804051b11;
+    address public constant REWARD = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
+    
     // $BADGER Token
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
+
+    // SpookySwap Router
+    IRouter public constant ROUTER = 0xf491e7b69e4244ad4002bc14e878a34207e38c29;
 
         function initialize(address _vault, address[1] memory _wantConfig)
         __BaseStrategy_init(_vault) ;
