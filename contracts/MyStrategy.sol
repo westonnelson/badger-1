@@ -25,9 +25,9 @@
     event Debug(string name, uint256 value);
     
     // $scWBTC Token;
-    address public constant SCTOKEN = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
+    address constant public SCTOKEN = 0x4565DC3Ef685E4775cdF920129111DdF43B9d882;
     // $SCREAM Token
-    address public constant REWARD = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
+    address constant public REWARD = 0xe0654C8e6fd4D733349ac7E09f6f23DA256bF475;
     
     // $BADGER Token
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
@@ -83,7 +83,7 @@
         emit Debug("_amount", _amount);
         LENDING_POOL.deposit(want, _amount, address(this), 0);
     }
-    
+
 }
     uint256 balBefore = balanceOfWant();
         LENDING_POOL.withdraw(want, _amount, address(this));
