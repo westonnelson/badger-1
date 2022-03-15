@@ -33,7 +33,7 @@
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
 
     // SpookySwap Router
-    IRouter public constant ROUTER = IRouter(0xf491e7b69e4244ad4002bc14e878a34207e38c29);
+    IRouter constant public ROUTER = IRouter(0xf491e7b69e4244ad4002bc14e878a34207e38c29);
 
     ILendingPool constant public LENDING_POOL = ILendingPool(0x4565DC3Ef685E4775cdF920129111DdF43B9d882);
 
@@ -89,9 +89,12 @@
 
     //
     function redeemUnderlying() internal override {
-        (uint256 redeemAmount) external returns (uint); = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
+        (uint256 redeemAmount) external returns (uint) = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
+        
         if(toWithdraw == 0){
+
             // Scream reverts if trying to withdraw 0
+            
             return;
         }
        
