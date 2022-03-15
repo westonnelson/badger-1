@@ -12,7 +12,7 @@
 
     import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
     import {ILendingPool} from "../interfaces/scream/ILendingPool.sol";
-    import {IComptrollerLensInterface} from "../interfaces/scream/IComprollerLensInterface.sol";
+    import {IComptrollerLensInterface} from "../interfaces/scream/IComptrollerLensInterface.sol";
     import {IRouter} from "../interfaces/spookyswap/IRouter.sol";
 
 
