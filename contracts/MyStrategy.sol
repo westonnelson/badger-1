@@ -84,22 +84,6 @@
         LENDING_POOL.deposit(want, _amount, address(this), 0);
     }
 
-    }
-
-
-    //
-    function redeem() internal override {}
-    uint256 redeemTokens = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
-        
-        if(toWithdraw == 0){
-
-            // Scream reverts if trying to withdraw 0
-
-            return;
-        }
-       
-    }
-
     // Max Withdrawal 
     LENDING_POOL.redeemUnderlying(want, type(uint256).max, address(this));
 
