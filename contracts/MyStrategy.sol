@@ -11,9 +11,9 @@
 
 
     import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
-    import {ILendingPool} from "../interfaces/aave/ILendingPool.sol";
-    import {IRewardsContract} from "../interfaces/aave/IRewardsContract.sol";
-    import {IRouter} from "../interfaces/joe/IRouter.sol";
+    import {ILendingPool} from "../interfaces/scream/ILendingPool.sol";
+    import {IComptrollerLensInterface} from "../interfaces/scream/IComprollerLensInterface.sol";
+    import {IRouter} from "../interfaces/spookyswap/IRouter.sol";
 
 
     contract MyStrategy is BaseStrategy {
@@ -36,6 +36,7 @@
     IRouter public constant ROUTER = IRouter(0xf491e7b69e4244ad4002bc14e878a34207e38c29);
 
     ILendingPool constant public LENDING_POOL = ILendingPool(0x4565DC3Ef685E4775cdF920129111DdF43B9d882);
+
     IComptrollerLensInterface constant public COMPTROLLER_LENS_INTERFACE = IComptollerLensInterface(0x59B46Fbb487aa974DE815F31601cbE6ba7368A01);
 
 
@@ -57,7 +58,7 @@
         );
     }
     
-    
+
     /// @dev Return the name of the strategy
     function getName() external pure override returns (string memory) {
         return "WBTC_YieldFarming_Scream";
@@ -87,8 +88,8 @@
 
 
     /// @dev Withdraw all funds, this is used for migrations, most of the time for emergency reasons
-    function _redeemUnderlying(uint256 redeemAmount) internal override {
-            uint256 toWithdraw = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
+    function _redeemUnderlying() internal override {
+        (uint256 redeemAmount = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
         if(toWithdraw == 0){
             // Scream reverts if trying to withdraw 0
             return;
@@ -96,20 +97,11 @@
        
     }
 
-    /// @dev Withdraw `_amount` of want, so that it can be sent to the vault / depositor
-    /// @notice just unlock the funds and return the amount you could unlock
-    function redeemUnderlyng(uint256 repayAmount) internal override returns (uint256) {
-        // Add code here to unlock / withdraw `_amount` of tokens to the withdrawer
-        // If there's a loss, make sure to have the withdrawer pay the loss to avoid exploits
-        // Socializing loss is always a bad idea
-        return _amount;
-    }
-
     // Max Withdrawal 
     LENDING_POOL.redeemUnderlying(want, type(uint256).max, address(this));
 
 }
-  uint256 balBefore = balanceOfWant();
+    uint256 balBefore = balanceOfWant();
         LENDING_POOL.withdraw(want, _amount, address(this));
         uint256 balAfter = balanceOfWant();
 
