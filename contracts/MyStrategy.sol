@@ -83,10 +83,7 @@
         emit Debug("_amount", _amount);
         LENDING_POOL.deposit(want, _amount, address(this), 0);
     }
-
-    // Max Withdrawal 
-    LENDING_POOL.redeemUnderlying(want, type(uint256).max, address(this));
-
+    
 }
     uint256 balBefore = balanceOfWant();
         LENDING_POOL.withdraw(want, _amount, address(this));
