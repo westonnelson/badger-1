@@ -52,7 +52,7 @@ def main():
     keeper = registry.get("keeper")
     proxyAdmin = registry.get("proxyAdminTimelock")
 
-    name = "ScreamwBTCYieldFarming" ## In vaults 1.5 it's the full name
+    name = "WBTC_YieldFarming_Scream" ## In vaults 1.5 it's the full name
     symbol = "bFRM-scStratwBTC" ## e.g The full symbol (remember to add symbol from want)
 
     assert strategist != AddressZero
