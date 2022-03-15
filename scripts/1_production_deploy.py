@@ -11,6 +11,8 @@ from brownie import (
 
 from _setup.config import (
     WANT, 
+    REWARD_TOKEN,
+    SCTOKEN,
     REGISTRY,
 
     PERFORMANCE_FEE_GOVERNANCE,
@@ -50,8 +52,8 @@ def main():
     keeper = registry.get("keeper")
     proxyAdmin = registry.get("proxyAdminTimelock")
 
-    name = "FTM STRAT" ## In vaults 1.5 it's the full name
-    symbol = "bFRM-STrat" ## e.g The full symbol (remember to add symbol from want)
+    name = "ScreamwBTCYieldFarming" ## In vaults 1.5 it's the full name
+    symbol = "bFRM-scStratwBTC" ## e.g The full symbol (remember to add symbol from want)
 
     assert strategist != AddressZero
     assert guardian != AddressZero
