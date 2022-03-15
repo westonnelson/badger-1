@@ -56,18 +56,7 @@
             type(uint256).max
         );
     }
-        
-        IERC20Upgradeable(want).safeApprove(LENDING_POOL, type(uint256).max);
-        IERC20Upgradeable(scToken).safeApprove(LENDING_POOL, type(uint256).max)
-
-       
-
-        /// @dev Allowance for SpookySwap
-
-        IERC20Upgradeable(reward).safeApprove(ROUTER, type(uint256).max); //approving Scream to SpookySwap
-        IERC20Upgradeable(want).safeApprove(ROUTER, type(uint256).max); //approving $WBTC to SpookySwap
-
-    }
+    
     
     /// @dev Return the name of the strategy
     function getName() external pure override returns (string memory) {
