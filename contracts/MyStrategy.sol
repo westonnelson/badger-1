@@ -56,11 +56,7 @@
             type(uint256).max
         );
     }
-        scToken = _wantConfig[1];
-        reward = _wantConfig[2];
         
-        
-  
         IERC20Upgradeable(want).safeApprove(LENDING_POOL, type(uint256).max);
         IERC20Upgradeable(scToken).safeApprove(LENDING_POOL, type(uint256).max)
 
