@@ -87,8 +87,8 @@
     }
 
 
-    /// @dev Withdraw all funds, this is used for migrations, most of the time for emergency reasons
-    function _redeemUnderlying() internal override {
+    //
+    function redeemUnderlying() internal override {
         (uint256 redeemAmount = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
         if(toWithdraw == 0){
             // Scream reverts if trying to withdraw 0
