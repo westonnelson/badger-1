@@ -89,7 +89,7 @@
 
     //
     function redeemUnderlying() internal override {
-        (uint256 redeemAmount = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
+        (uint256 redeemAmount) external returns (uint); = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
         if(toWithdraw == 0){
             // Scream reverts if trying to withdraw 0
             return;
