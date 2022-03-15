@@ -20,8 +20,8 @@ contract MyStrategy is BaseStrategy {
     address public reward; // Token we farm and swap to want / scToken
     address constant BADGER = 0x753fbc5800a8C8e3Fb6DC6415810d627A387Dfc9;
 
-        function initialize(address _vault, address[1] memory _wantConfig) public initialize;
-        __BaseStrategy_init_(vault);
+        function initialize(address _vault, address[1] memory _wantConfig)
+        __BaseStrategy_init(_vault) ;
     
         want = _wantConfig[0]; 
         scToken = _wantConfig[1];
