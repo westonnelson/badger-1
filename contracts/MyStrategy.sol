@@ -84,21 +84,26 @@
         LENDING_POOL.deposit(want, _amount, address(this), 0);
     }
 
-}
-    uint256 balBefore = balanceOfWant();
+}       function withdraw(uint256 _amount) internal override returns (uint256) {
+        uint256 maxAmount = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
+        if(_amount > maxAmount){
+            _amount = maxAmount; // saves gas here
+        }
+
+        uint256 balBefore = balanceOfWant();
         LENDING_POOL.withdraw(want, _amount, address(this));
         uint256 balAfter = balanceOfWant();
 
         // Handle case of slippage
         return balAfter.sub(balBefore);
-    }
+        }
 
-    /// @dev Does this function require `tend` to be called?
-    function _isTendable() internal override pure returns (bool) {
+        /// @dev Does this function require `tend` to be called?
+         function _isTendable() internal override pure returns (bool) {
         return false; // Change to true if the strategy should be tended
-    }
+         }
 
-    function _claimComp() internal override returns (TokenAmount[] memory harvested) {
+        function _claimComp() internal override returns (TokenAmount[] memory harvested) {
         address[] memory tokens = new address[](1);
         tokens[0] = scToken;
         // No-op as we don't do anything with funds
