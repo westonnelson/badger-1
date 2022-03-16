@@ -7,7 +7,10 @@ from brownie import (
     accounts,
 )
 from _setup.config import (
+    SCTOKEN,
     WANT, 
+    REWARD_TOKEN,
+    SCTOKEN,
     WHALE_ADDRESS,
 
     PERFORMANCE_FEE_GOVERNANCE,
