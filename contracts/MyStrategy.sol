@@ -1,18 +1,19 @@
-// SPDX-License-Identifier: MIT
-pragma solidity 0.6.12;
-pragma experimental ABIEncoderV2;
-import "@openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
-import "@openzeppelin-contracts-upgradeable/math/SafeMathUpgradeable.sol";
-import "@openzeppelin-contracts-upgradeable/math/MathUpgradeable.sol";
-import "@openzeppelin-contracts-upgradeable/utils/AddressUpgradeable.sol";
-import "@openzeppelin-contracts-upgradeable/token/ERC20/SafeERC20Upgradeable.sol";
-import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
-import {ILendingPool} from "../interfaces/scream/ILendingPool.sol";
-import {IComptrollerLensInterface} from "../interfaces/scream/IComptrollerLensInterface.sol";
-import {IRouter} from "../interfaces/spookyswap/IRouter.sol";
+    // SPDX-License-Identifier: MIT
+    pragma solidity 0.6.12;
+    pragma experimental ABIEncoderV2;
+
+    import "@openzeppelin-contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+    import "@openzeppelin-contracts-upgradeable/math/SafeMathUpgradeable.sol";
+    import "@openzeppelin-contracts-upgradeable/math/MathUpgradeable.sol";
+    import "@openzeppelin-contracts-upgradeable/utils/AddressUpgradeable.sol";
+    import "@openzeppelin-contracts-upgradeable/token/ERC20/SafeERC20Upgradeable.sol";
+    import {BaseStrategy} from "@badger-finance/BaseStrategy.sol";
+    import {ILendingPool} from "../interfaces/scream/ILendingPool.sol";
+    import {IComptrollerLensInterface} from "../interfaces/scream/IComptrollerLensInterface.sol";
+    import {IRouter} from "../interfaces/spookyswap/IRouter.sol";
 
 
-contract MyStrategy is BaseStrategy {
+    contract MyStrategy is BaseStrategy {
 
     using SafeERC20Upgradeable for IERC20Upgradeable;
     using AddressUpgradeable for address;
@@ -72,15 +73,14 @@ contract MyStrategy is BaseStrategy {
     }
 
 
-
-    /// @dev Deposit `_amount` of want, investing it to earn yield
+        // @dev Deposit `_amount` of want, investing it to earn yield
         // Add code here to invest `_amount` of want to earn yield
-    function mint(uint256 mintAmount) internal override {
+        function mint(uint256 mintAmount) internal override {
         emit Debug("_amount", _amount);
         LENDING_POOL.deposit(want, _amount, address(this), 0);
-    }
+        }
 
-    function withdraw(uint256 _amount) internal override returns (uint256) {
+        function withdraw(uint256 _amount) internal override returns (uint256) {
         uint256 maxAmount = IERC20Upgradeable(scToken).balanceOf(address(this)); // Cache to save gas on worst case
         if(_amount > maxAmount){
             _amount = maxAmount; // saves gas here
@@ -139,7 +139,7 @@ contract MyStrategy is BaseStrategy {
     }
 
       // Example tend is a no-op which returns the values, could also just revert
-    function _tend() internal override returns (TokenAmount[] memory tended){
+        function _tend() internal override returns (TokenAmount[] memory tended){
         uint256 balanceToTend = balanceOfWant();
         _deposit(balanceToTend);
 
@@ -149,32 +149,32 @@ contract MyStrategy is BaseStrategy {
         tended[1] = TokenAmount(scToken, 0);
         tended[2] = TokenAmount(REWARD, 0);
         return tended;
-    }
+        }
 
-      /// @dev Return the balance (in want) that the strategy has invested somewhere
-    function balanceOfUnderlying() public view override returns (uint256) {
+        // @dev Return the balance (in want) that the strategy has invested somewhere
+        function balanceOfUnderlying() public view override returns (uint256) {
         return IERC20Upgradeable(scToken).balanceOf(address(this));
-    }
+        }
 
 
-    // Example tend is a no-op which returns the values, could also just revert
-    function _tend() internal override returns (TokenAmount[] memory tended){
+        // Example tend is a no-op which returns the values, could also just revert
+        function _tend() internal override returns (TokenAmount[] memory tended){
         // Nothing tended
         tended = new TokenAmount[](2);
         tended[0] = TokenAmount(want, 0);
         tended[1] = TokenAmount(BADGER, 0);
         return tended;
-    }
+        }
 
-    /// @dev Return the balance (in want) that the strategy has invested somewhere
-    function balanceOfUnderlying(address owner) public view override returns (uint256) {
+        // @dev Return the balance (in want) that the strategy has invested somewhere
+        function balanceOfUnderlying(address owner) public view override returns (uint256) {
         // Change this to return the amount of want invested in another protocol
         return 0;
-    }
+        }
 
-    /// @dev Return the balance of rewards that the strategy has accrued
-    /// @notice Used for offChain APY and Harvest Health monitoring
-    function compAccrued() external view override returns (TokenAmount[] memory rewards) {
+        // @dev Return the balance of rewards that the strategy has accrued
+        // @notice Used for offChain APY and Harvest Health monitoring
+        function compAccrued() external view override returns (TokenAmount[] memory rewards) {
         address[] memory tokens = new address[](1);
         tokens[0] = scToken;
 
