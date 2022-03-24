@@ -1,6 +1,6 @@
 # <h1>This Strategy is a autocompounding lend/borrow folding strategy for use on Scream Protocol on the Fantom network. <h1>
 
-There are multiple assets that could be utilized, but for this repository, the foccus is on $WBTC borrowing and lending, accruing $SCREAM tokens, harvesting then for more $WBTC, and repeating this process. 
+There are multiple assets that could be utilized, but for this repository, the focus is on $wBTC borrowing and lending, accruing $SCREAM tokens, harvesting then for more $wBTC, and repeating this process to generate additional yield for $wBTC holders.
   
 👻 
   
